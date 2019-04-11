@@ -3,14 +3,10 @@ services:
 
   db:
     image: postgres:10.4
-    ports:
-      - "5432:5432"
 
   sqs:
     image: pakohan/elasticmq
     hostname: sqs
-    ports:
-      - 9324:9324
 
   django:
     hostname: django
@@ -19,8 +15,6 @@ services:
     build:
       context: ./
       dockerfile: docker/dev/django/Dockerfile
-    ports:
-      - "8000:8000"
     depends_on:
       - db
       - sqs
@@ -45,9 +39,6 @@ services:
       dockerfile: docker/dev/nodejs/Dockerfile
     environment:
       NODE_ENV: development
-    ports:
-      - "8888:8888"
-      - "35729:35729"
     volumes:
       - .:/code
       - /code/node_modules
